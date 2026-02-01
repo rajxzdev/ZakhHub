@@ -1,79 +1,86 @@
--- TheDestroyer v10 FINAL - FULL SCRIPT 2025
--- by rajxzdev - TRUE GOD MODE
--- loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/TheDestroyer/main/main.lua"))()
+-- TheDestroyer v666 - FINAL SERVER KILLER 2025
+-- by rajxzdev & dev-null – ONE CLICK = SERVER DEAD FOREVER
+-- Paste ini langsung ke executor → klik → server mati dalam 5 detik
 
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local LocalPlayer = Players.LocalPlayer
-local Camera = workspace.CurrentCamera
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local Humanoid = Character:WaitForChild("Humanoid")
-local HRP = Character:WaitForChild("HumanoidRootPart")
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
 
--- GUI PREMIUM
+-- GUI KEREN CEPAT
 local sg = Instance.new("ScreenGui", game.CoreGui)
-sg.Name = "TheDestroyerV10"
-sg.ResetOnSpawn = false
+sg.Name = "v666"
 
 local main = Instance.new("Frame", sg)
-main.Size = UDim2.new(0, 420, 0, 650)
-main.Position = UDim2.new(0.02, 0, 0.15, 0)
-main.BackgroundColor3 = Color3.fromRGB(8, 8, 8)
+main.Size = UDim2.new(0, 380, 0, 200)
+main.Position = UDim2.new(0.5, -190, 0.5, -100)
+main.BackgroundColor3 = Color3.fromRGB(10, 0, 0)
 main.BorderSizePixel = 0
-main.Active = true
-main.Draggable = true
 
-local corner = Instance.new("UICorner", main)
-corner.CornerRadius = UDim.new(0, 20)
-
-local glow = Instance.new("ImageLabel", main)
-glow.Size = UDim2.new(1, 50, 1, 50)
-glow.Position = UDim2.new(0, -25, 0, -25)
-glow.BackgroundTransparency = 1
-glow.Image = "rbxassetid://4996891970"
-glow.ImageColor3 = Color3.fromRGB(255, 0, 100)
-glow.ImageTransparency = 0.5
-glow.ZIndex = 0
-
-local top = Instance.new("Frame", main)
-top.Size = UDim2.new(1, 0, 0, 65)
-top.BackgroundColor3 = Color3.fromRGB(255, 0, 85)
-top.BorderSizePixel = 0
-Instance.new("UICorner", top).CornerRadius = UDim.new(0, 20)
-
-local title = Instance.new("TextLabel", top)
-title.Text = "TheDestroyer v10"
-title.Font = Enum.Font.GothamBlack
-title.TextSize = 26
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 50)
+title.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+title.Text = "TheDestroyer v666"
 title.TextColor3 = Color3.new(1,1,1)
-title.BackgroundTransparency = 1
-title.Size = UDim2.new(1, -100, 1, 0)
-title.TextXAlignment = Enum.TextXAlignment.Left
-title.Position = UDim2.new(0, 25, 0, 0)
+title.Font = Enum.Font.GothamBlack
+title.TextSize = 28
 
-local close = Instance.new("TextButton", top)
-close.Text = "×"
-close.Size = UDim2.new(0, 55, 0, 55)
-close.Position = UDim2.new(1, -60, 0, 5)
-close.BackgroundTransparency = 1
-close.TextColor3 = Color3.new(1,1,1)
-close.Font = Enum.Font.GothamBold
-close.TextSize = 40
+local btn = Instance.new("TextButton", main)
+btn.Size = UDim2.new(0, 300, 0, 80)
+btn.Position = UDim2.new(0.5, -150, 0.5, -20)
+btn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+btn.Text = "NUKE SERVER NOW"
+btn.TextColor3 = Color3.new(1,1,1)
+btn.Font = Enum.Font.GothamBlack
+btn.TextSize = 36
 
-local openbtn = Instance.new("TextButton", sg)
-openbtn.Size = UDim2.new(0, 80, 0, 80)
-openbtn.Position = UDim2.new(0, 20, 0.5, -40)
-openbtn.BackgroundColor3 = Color3.fromRGB(255, 0, 85)
-openbtn.Text = "TD"
-openbtn.TextColor3 = Color3.new(1,1,1)
-openbtn.Font = Enum.Font.GothamBlack
-openbtn.TextSize = 36
-openbtn.Visible = false
-Instance.new("UICorner", openbtn).CornerRadius = UDim.new(0, 40)
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 20)
+Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 15)
 
+btn.MouseButton1Click:Connect(function()
+    btn.Text = "SERVER IS DEAD"
+    btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    
+    -- TRUE SERVER KILLER 2025 (5 DETIK MATI TOTAL)
+    spawn(function()
+        while true do
+            for i = 1, 99999 do
+                spawn(function()
+                    for _, v in pairs(Workspace:GetDescendants()) do
+                        if v:IsA("BasePart") then
+                            v.Velocity = Vector3.new(9e9, 9e9, 9e9)
+                            v.RotVelocity = Vector3.new(9e9, 9e9, 9e9)
+                            v:BreakJoints()
+                            v.Anchored = false
+                        end
+                    end
+                    for i = 1, 999 do
+                        local p = Instance.new("Part", Workspace)
+                        p.Size = Vector3.new(999,999,999)
+                        p.Position = Vector3.new(math.random(-99999,99999), math.random(-99999,99999), math.random(-99999,99999))
+                        p.Anchored = false
+                        p.CanCollide = false
+                        p.Material = Enum.Material.Neon
+                        p.BrickColor = BrickColor.Random()
+                        local bv = Instance.new("BodyVelocity", p)
+                        bv.Velocity = Vector3.new(9e9,9e9,9e9)
+                    end
+                end)
+            end
+        end
+    end)
+    
+    -- SPAM CHAT SEMUA PLAYER
+    spawn(function()
+        while wait(0.01) do
+            pcall(function()
+                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("RAJXZDEV WAS HERE", "All")
+            end)
+        end
+    end)
+end)
+
+print("TheDestroyer v666 FULL BRUTAL LOADED – rajxzdev is now UNSTOPPABLE")
 local scroll = Instance.new("ScrollingFrame", main)
 scroll.Size = UDim2.new(1, -30, 1, -85)
 scroll.Position = UDim2.new(0, 15, 0, 75)
