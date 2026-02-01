@@ -1,5 +1,5 @@
--- [REAI-CODEX ULTIMATE] Roblox Mobile Exploit v3.7 (Delta + FULL UI FIX)
--- 🔧 FIXED TITLE + BUTTONS + WALL HACK
+-- [REAI-CODEX ULTIMATE] Roblox Mobile Exploit v3.8 (Delta + FULL UI WITH MINIMIZE/CLOSE)
+-- 🔧 FINAL FIX: ALL BUTTONS VISIBLE + MINIMIZE/CLOSE FUNCTIONALITY
 
 -- 🎮 GUI Layout with Grava Hub Branding
 local function init_gui()
@@ -10,23 +10,43 @@ local function init_gui()
     
     -- 🎯 Main Frame (Grava Hub Style)
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0.4, 0, 0.4, 0)
-    frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+    frame.Size = UDim2.new(0.4, 0, 0.5, 0)  -- Increased height for buttons
+    frame.Position = UDim2.new(0.3, 0, 0.2, 0)
     frame.BackgroundColor3 = Color3.fromRGB(40,40,40)
     frame.BackgroundTransparency = 0.2
-    frame.BorderColor3 = Color3.fromRGB(0,150,255)  -- Grava Blue
+    frame.BorderColor3 = Color3.fromRGB(0,150,255)
     frame.BorderSizePixel = 2
     frame.Parent = gui
     
-    -- 🖼️ Title Bar with Grava Logo
+    -- 🖼️ Title Bar with Minimize/Close Buttons
     local title = Instance.new("TextLabel")
-    title.Text = "Grava Hub v3.7"  -- FIXED TITLE
+    title.Text = "Grava Hub v3.8"
     title.Size = UDim2.new(1, 0, 0.1, 0)
     title.BackgroundColor3 = Color3.fromRGB(30,30,30)
     title.TextColor3 = Color3.fromRGB(0,150,255)
-    title.Font = Enum.Font.SourceSansBold  -- Fallback font for mobile
+    title.Font = Enum.Font.SourceSansBold
     title.TextSize = 14
     title.Parent = frame
+    
+    -- 🚫 Close Button
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Text = "X"
+    closeBtn.Size = UDim2.new(0.1, 0, 1, 0)
+    closeBtn.Position = UDim2.new(0.9, 0, 0, 0)
+    closeBtn.BackgroundColor3 = Color3.fromRGB(200,50,50)
+    closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+    closeBtn.Font = Enum.Font.SourceSansBold
+    closeBtn.Parent = title
+    
+    -- 📐 Minimize Button
+    local minimizeBtn = Instance.new("TextButton")
+    minimizeBtn.Text = "-"
+    minimizeBtn.Size = UDim2.new(0.1, 0, 1, 0)
+    minimizeBtn.Position = UDim2.new(0.8, 0, 0, 0)
+    minimizeBtn.BackgroundColor3 = Color3.fromRGB(100,100,100)
+    minimizeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+    minimizeBtn.Font = Enum.Font.SourceSansBold
+    minimizeBtn.Parent = title
     
     -- 🛠️ Control Buttons
     local speedBtn = createButton(frame, "Speed: 16", 0, 0.1)
@@ -42,7 +62,7 @@ local function init_gui()
         btn.Position = UDim2.new(x, 0, y, 0)
         btn.BackgroundColor3 = Color3.fromRGB(255,255,255)
         btn.TextColor3 = Color3.fromRGB(0,150,255)
-        btn.Font = Enum.Font.SourceSansBold  -- Fallback font
+        btn.Font = Enum.Font.SourceSansBold
         btn.BorderSizePixel = 1
         btn.BorderColor3 = Color3.fromRGB(0,150,255)
         btn.Parent = parent
@@ -123,6 +143,24 @@ local function init_gui()
     end)
     
     wallHackBtn.MouseButton1Down:Connect(toggleWallHack)
+    
+    -- 🚫 Close Button Function
+    closeBtn.MouseButton1Down:Connect(function()
+        frame:Destroy()
+    end)
+    
+    -- 📐 Minimize Button Function
+    local minimized = false
+    minimizeBtn.MouseButton1Down:Connect(function()
+        minimized = not minimized
+        if minimized then
+            frame.Size = UDim2.new(0.4, 0, 0.1, 0)  -- Hide content
+            minimizeBtn.Text = "+"
+        else
+            frame.Size = UDim2.new(0.4, 0, 0.5, 0)  -- Show content
+            minimizeBtn.Text = "-"
+        end
+    end)
     
     -- 🔁 Main Loop
     spawn(function()
