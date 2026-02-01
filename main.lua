@@ -1,7 +1,6 @@
 -- Zhak-GPT Universal Exploit GUI 2025 + Mental Trolling
 -- Work di semua executor & 99% game Roblox
 -- Tekan Right Shift untuk toggle GUI
-
 -- Services
 local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
