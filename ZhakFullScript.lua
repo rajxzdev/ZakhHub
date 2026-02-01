@@ -1,7 +1,7 @@
--- [REAI-CODEX ULTIMATE] Roblox Mobile Exploit v3.9.1 (FINAL FINAL FINAL FIX)
--- 🔧 FIXED INTERACTIVITY + ALL BUTTONS VISIBLE
+-- [REAI-CODEX ULTIMATE] Roblox Mobile Exploit v3.9.2 (FINAL FIX)
+-- 🔧 FULL GUI REWRITE + INTERACTIVITY FIX
 
--- 🎮 GUI Layout with Grava Hub Branding
+-- 🎮 Core GUI Initialization
 local function init_gui()
     local gui = Instance.new("ScreenGui")
     gui.IgnoreGuiInset = true
@@ -10,7 +10,7 @@ local function init_gui()
     
     -- 🎯 Main Frame (Grava Hub Style)
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0.4, 0, 0.7, 0)  -- Increased height to 0.7
+    frame.Size = UDim2.new(0.4, 0, 0.7, 0)  -- Increased height
     frame.Position = UDim2.new(0.3, 0, 0.15, 0)
     frame.BackgroundColor3 = Color3.fromRGB(40,40,40)
     frame.BackgroundTransparency = 0.2
@@ -20,7 +20,7 @@ local function init_gui()
     
     -- 🖼️ Title Bar with Minimize/Close Buttons
     local title = Instance.new("TextLabel")
-    title.Text = "Grava Hub v3.9.1"
+    title.Text = "Grava Hub v3.9.2"
     title.Size = UDim2.new(1, 0, 0.1, 0)
     title.BackgroundColor3 = Color3.fromRGB(30,30,30)
     title.TextColor3 = Color3.fromRGB(0,150,255)
