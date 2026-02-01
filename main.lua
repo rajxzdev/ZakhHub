@@ -1,172 +1,151 @@
--- ULTIMATE UNIVERSAL HUB v6.66 - FULL SCRIPT (NO HTTPGET)
--- Fly | Noclip | Speed | ESP | Teleport Player | OBJECT FLY TROLL
+-- TheDestroyer v6 - FINAL GOD MODE 2025
+-- by rajxzdev (official god creator)
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/TheDestroyer/main/main.lua"))()
 
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 local IsMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
-local GuiScale = IsMobile and 1.5 or 1
 
--- GUI
+-- MAIN GUI PREMIUM KELAS DUNIA
 local ScreenGui = Instance.new("ScreenGui")
-local Main = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
+ScreenGui.Name = "TheDestroyerV6"
+ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = game.CoreGui
-ScreenGui.Name = "DestroyerHub"
 
-Main.Parent = ScreenGui
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+local Main = Instance.new("Frame")
+Main.Size = UDim2.new(0, 380, 0, 580)
+Main.Position = UDim2.new(0.02, 0, 0.2, 0)
+Main.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
 Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.02, 0, 0.25, 0)
-Main.Size = UDim2.new(0, 300 * GuiScale, 0, 520 * GuiScale)
 Main.Active = true
 Main.Draggable = true
-Main.BackgroundTransparency = 0.05
+Main.Parent = ScreenGui
 
-Title.Parent = Main
-Title.BackgroundTransparency = 1
-Title.Size = UDim2.new(1, 0, 0, 50)
+local UICorner = Instance.new("UICorner", Main)
+UICorner.CornerRadius = UDim.new(0, 16)
+
+local Glow = Instance.new("ImageLabel", Main)
+Glow.Size = UDim2.new(1, 30, 1, 30)
+Glow.Position = UDim2.new(0, -15, 0, -15)
+Glow.BackgroundTransparency = 1
+Glow.Image = "rbxassetid://4996891970"
+Glow.ImageColor3 = Color3.fromRGB(255, 0, 100)
+Glow.ImageTransparency = 0.6
+Glow.ZIndex = 0
+
+local TopBar = Instance.new("Frame", Main)
+TopBar.Size = UDim2.new(1, 0, 0, 55)
+TopBar.BackgroundColor3 = Color3.fromRGB(255, 0, 85)
+TopBar.BorderSizePixel = 0
+Instance.new("UICorner", TopBar).CornerRadius = UDim.new(0, 16)
+
+local Title = Instance.new("TextLabel", TopBar)
+Title.Text = "TheDestroyer v6"
 Title.Font = Enum.Font.GothamBlack
-Title.Text = "DESTROYER HUB v6.66"
-Title.TextColor3 = Color3.fromRGB(255, 0, 0)
-Title.TextSize = 22 * GuiScale
+Title.TextSize = 22
+Title.TextColor3 = Color3.new(1,1,1)
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, -100, 1, 0)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Position = UDim2.new(0, 15, 0, 0)
 
-local function Btn(name, text, color, posY, callback)
+local Close = Instance.new("TextButton", TopBar)
+Close.Text = "×"
+Close.Size = UDim2.new(0, 45, 0, 45)
+Close.Position = UDim2.new(1, -50, 0, 5)
+Close.BackgroundTransparency = 1
+Close.TextColor3 = Color3.new(1,1,1)
+Close.Font = Enum.Font.GothamBold
+Close.TextSize = 36
+
+local OpenBtn = Instance.new("TextButton", ScreenGui)
+OpenBtn.Size = UDim2.new(0, 60, 0, 60)
+OpenBtn.Position = UDim2.new(0, 10, 0.5, -30)
+OpenBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 85)
+OpenBtn.Text = "D"
+OpenBtn.TextColor3 = Color3.new(1,1,1)
+OpenBtn.Font = Enum.Font.GothamBlack
+OpenBtn.TextSize = 30
+OpenBtn.Visible = false
+Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(0, 30)
+
+-- Scroll Frame
+local Scroll = Instance.new("ScrollingFrame", Main)
+Scroll.Size = UDim2.new(1, -20, 1, -75)
+Scroll.Position = UDim2.new(0, 10, 0, 65)
+Scroll.BackgroundTransparency = 1
+Scroll.ScrollBarThickness = 6
+Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+
+local function AddButton(name, color)
     local btn = Instance.new("TextButton")
-    btn.Name = name
-    btn.Parent = Main
-    btn.BackgroundColor3 = color
-    btn.Position = UDim2.new(0.05, 0, 0, posY * 60)
-    btn.Size = UDim2.new(0.9, 0, 0, 50 * GuiScale)
-    btn.Font = Enum.Font.GothamBold
-    btn.Text = text
+    btn.Size = UDim2.new(1, -10, 0, 55)
+    btn.BackgroundColor3 = color or Color3.fromRGB(30, 30, 30)
+    btn.Text = name .. " [OFF]"
     btn.TextColor3 = Color3.new(1,1,1)
-    btn.TextSize = 18 * GuiScale
-    btn.MouseButton1Click:Connect(callback)
-    return btn
-end
-
--- Variables
-local Flying = false
-local Noclipping = false
-local SelectedPlayer = nil
-
--- Fly Button
-Btn("Fly", "Fly [OFF]", Color3.fromRGB(0, 170, 255), 1, function(self)
-    Flying = not Flying
-    self.Text = "Fly ["..(Flying and "ON" or "OFF").."]"
-    self.BackgroundColor3 = Flying and Color3.fromRGB(0,255,0) or Color3.fromRGB(0,170,255)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextSize = 18
+    btn.Parent = Scroll
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 12)
     
-    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-    local hrp = char:WaitForChild("HumanoidRootPart")
-    local bv = Instance.new("BodyVelocity", hrp)
-    local bg = Instance.new("BodyGyro", hrp)
-    bv.MaxForce = Vector3.new(9e9,9e9,9e9)
-    bg.MaxTorque = Vector3.new(9e9,9e9,9e9)
-    bg.P = 9e9
+    Scroll.CanvasSize = Scroll.CanvasSize + UDim2.new(0, 0, 0, 65)
     
-    spawn(function()
-        while Flying and hrp.Parent do
-            local dir = Vector3.new(
-                (UserInputService:IsKeyDown(Enum.KeyCode.D) and 1 or 0) - (UserInputService:IsKeyDown(Enum.KeyCode.A) and 1 or 0),
-                (UserInputService:IsKeyDown(Enum.KeyCode.Space) and 1 or 0) - (UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) and 1 or 0),
-                (UserInputService:IsKeyDown(Enum.KeyCode.S) and 1 or 0) - (UserInputService:IsKeyDown(Enum.KeyCode.W) and 1 or 0)
-            )
-            bv.Velocity = (Camera.CFrame.LookVector * dir.Z + Camera.CFrame.RightVector * dir.X + Vector3.new(0, dir.Y, 0)) * 200
-            bg.CFrame = Camera.CFrame
-            task.wait()
-        end
-        bv:Destroy(); bg:Destroy()
-    end)
-end)
-
--- Noclip
-Btn("Noclip", "Noclip [OFF]", Color3.fromRGB(255, 170, 0), 2, function(self)
-    Noclipping = not Noclipping
-    self.Text = "Noclip ["..(Noclipping and "ON" or "OFF").."]"
-    RunService.Stepped:Connect(function()
-        if Noclipping and LocalPlayer.Character then
-            for _, v in pairs(LocalPlayer.Character:GetDescendants()) do
-                if v:IsA("BasePart") then v.CanCollide = false end
-            end
+    local active = false
+    btn.MouseButton1Click:Connect(function()
+        active = not active
+        btn.Text = name .. " ["..(active and "ON" or "OFF").."]"
+        btn.BackgroundColor3 = active and Color3.fromRGB(0, 255, 100) or Color3.fromRGB(30, 30, 30)
+        
+        if name == "Fly Mobile/PC" then
+            if active then loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/flymobile/main/fly.lua"))() else loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/flymobile/main/stop.lua"))() end
+        elseif name == "Noclip" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/noclip/main/noclip.lua"))()
+        elseif name == "Speed 300" then
+            LocalPlayer.Character.Humanoid.WalkSpeed = active and 300 or 16
+        elseif name == "Inf Jump" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/infj/main/inf.lua"))()
+        elseif name == "Player ESP" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/esp/main/esp.lua"))()
+        elseif name == "Click TP" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/clicktp/main/clicktp.lua"))()
+        elseif name == "Object Troll" then
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/rajxzdev/objecttroll/main/troll.lua"))()
         end
     end)
-end)
-
--- Speed
-Btn("Speed", "Speed Hack", Color3.fromRGB(170, 0, 255), 3, function(self)
-    local hum = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid")
-    if hum then
-        hum.WalkSpeed = hum.WalkSpeed == 16 and 250 or 16
-        self.Text = "Speed ["..(hum.WalkSpeed == 250 and "ON" or "OFF").."]"
-    end
-end)
-
--- Player List + Teleport
-local PlayerList = Instance.new("ScrollingFrame", Main)
-PlayerList.Size = UDim2.new(0.9, 0, 0, 140 * GuiScale)
-PlayerList.Position = UDim2.new(0.05, 0, 0, 260)
-PlayerList.BackgroundTransparency = 0.8
-PlayerList.ScrollBarThickness = 6
-
-local function RefreshPlayers()
-    for _, v in pairs(PlayerList:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end
-    local y = 0
-    for _, plr in pairs(Players:GetPlayers()) do
-        if plr ~= LocalPlayer then
-            local btn = Instance.new("TextButton", PlayerList)
-            btn.Size = UDim2.new(1, 0, 0, 30)
-            btn.Position = UDim2.new(0, 0, 0, y)
-            btn.Text = plr.DisplayName.." (@"+plr.Name..")"
-            btn.BackgroundColor3 = Color3.fromRGB(40,40,40)
-            btn.TextColor3 = Color3.new(1,1,1)
-            btn.MouseButton1Click:Connect(function()
-                SelectedPlayer = plr
-                game.StarterGui:SetCore("SendNotification",{Title="Target Locked",Text=plr.DisplayName.." siap dihancurkan!",Duration=3})
-            end)
-            y = y + 35
-        end
-    end
 end
-RefreshPlayers()
-Players.PlayerAdded:Connect(RefreshPlayers)
-Players.PlayerRemoving:Connect(RefreshPlayers)
 
--- Teleport to Selected Player
-Btn("Teleport", "Teleport ke Target", Color3.fromRGB(255, 100, 100), 7, function()
-    if SelectedPlayer and SelectedPlayer.Character and SelectedPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        LocalPlayer.Character.HumanoidRootPart.CFrame = SelectedPlayer.Character.HumanoidRootPart.CFrame
-    else
-        game.StarterGui:SetCore("SendNotification",{Title="Error",Text="Pilih target dulu bro!",Duration=3})
-    end
+-- SEMUA FITUR GILA
+AddButton("Fly Mobile/PC", Color3.fromRGB(0, 255, 150))
+AddButton("Noclip")
+AddButton("Speed 300")
+AddButton("Inf Jump")
+AddButton("Player ESP")
+AddButton("Click TP")
+AddButton("Object Troll")
+AddButton("Auto Farm")
+AddButton("Kill Aura")
+AddButton("God Mode")
+AddButton("Fling All")
+AddButton("Crash Server")
+
+-- Close/Open
+Close.MouseButton1Click:Connect(function()
+    Main.Visible = false
+    OpenBtn.Visible = true
 end)
-
--- OBJECT FLY TROLL (FITUR PALING JAHAT)
-Btn("ObjectTroll", "Object Fly ke Target", Color3.fromRGB(150, 0, 0), 8, function(self)
-    if not SelectedPlayer then return end
-    local target = SelectedPlayer.Character.HumanoidRootPart
-    for _, obj in pairs(workspace:GetDescendants()) do
-        if obj:IsA("BasePart") and not obj.Anchored and obj ~= target and obj.Parent ~= LocalPlayer.Character then
-            obj.CanCollide = false
-            spawn(function()
-                while task.wait(0.05) and target.Parent do
-                    obj.Velocity = (target.Position - obj.Position).unit * 300 + Vector3.new(0, 100, 0)
-                end
-            end)
-        end
-    end
-    self.Text = "Object Troll ON (klik lagi = mati)"
-    task.wait(8)
-    self.Text = "Object Fly ke Target"
+OpenBtn.MouseButton1Click:Connect(function()
+    Main.Visible = true
+    OpenBtn.Visible = false
 end)
 
 game.StarterGui:SetCore("SendNotification", {
-    Title = "DESTROYER HUB v6.66";
-    Text = "Loaded. Pilih target lalu hajar!";
-    Duration = 6;
+    Title = "TheDestroyer v6";
+    Text = "Loaded successfully! by rajxzdev";
+    Duration = 8;
 })
 
-print("DESTROYER HUB v6.66 ACTIVE - NO MERCY MODE")
+print("TheDestroyer v6 FINAL GOD MODE - rajxzdev is now UNSTOPPABLE")
